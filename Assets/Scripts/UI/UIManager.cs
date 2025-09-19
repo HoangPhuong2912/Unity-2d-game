@@ -17,6 +17,7 @@ public class UIManager : MonoBehaviour
         gameUI.SetActive(true);
         startUI.SetActive(true);
     }
+
     private IEnumerator Subscribe()
     {
         yield return new WaitUntil(() => GameEvents.instance != null);
@@ -45,6 +46,7 @@ public class UIManager : MonoBehaviour
             })
             .AddTo(subscriptions);
     }
+
     private void OnDisable()
     {
         subscriptions.Clear();
@@ -65,17 +67,19 @@ public class UIManager : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+
     public void NextLevel()
     {
         int newCurrentLevel = PlayerPrefs.GetInt("currentLevel", 1) + 1;
         int newLoadingLevel = PlayerPrefs.GetInt("loadingLevel", 1) + 1;
 
         if (newLoadingLevel >= SceneManager.sceneCountInBuildSettings)
-            newLoadingLevel = 1;
+            newLoadingLevel = 1; // quay về level1 nếu vượt quá số level
 
         PlayerPrefs.SetInt("currentLevel", newCurrentLevel);
         PlayerPrefs.SetInt("loadingLevel", newLoadingLevel);
 
-        SceneManager.LoadScene(newLoadingLevel);
+        // load qua scene Loading trước
+        SceneManager.LoadScene("_Loading");
     }
 }

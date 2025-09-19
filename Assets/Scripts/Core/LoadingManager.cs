@@ -5,6 +5,6 @@ public class LoadingManager : MonoBehaviour
 {
     private void Awake()
     {
-        SceneManager.LoadScene(PlayerPrefs.GetInt("loadingLevel", 1));  
+        SceneManager.LoadScene(PlayerPrefs.GetInt("loadingLevel", 1));
     }
 }
