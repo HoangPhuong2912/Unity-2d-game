@@ -4,7 +4,7 @@ using DG.Tweening;
 
 public class Block : MonoBehaviour
 {
-    [Header ("Size & Color")]
+    [Header("Size & Color")]
     [SerializeField] private int startingSize;
     [SerializeField] private Material[] blockColor;
     [SerializeField] private MeshRenderer blockMesh;
@@ -31,7 +31,9 @@ public class Block : MonoBehaviour
 
     public void CheckHit()
     {
+#if UNITY_ANDROID || UNITY_IOS
         Handheld.Vibrate();
+#endif
         Camera.main.transform.DOShakePosition(0.1f, 0.5f, 5);
 
         if (GameEvents.instance.playerSize.Value > startingSize)
