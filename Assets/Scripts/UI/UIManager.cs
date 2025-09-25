@@ -70,16 +70,22 @@ public class UIManager : MonoBehaviour
 
     public void NextLevel()
     {
-        int newCurrentLevel = PlayerPrefs.GetInt("currentLevel", 1) + 1;
-        int newLoadingLevel = PlayerPrefs.GetInt("loadingLevel", 1) + 1;
+        int currentLevel = PlayerPrefs.GetInt("currentLevel", 1);
+        int loadingLevel = PlayerPrefs.GetInt("loadingLevel", 1);
 
+        int newCurrentLevel = currentLevel + 1;
+        int newLoadingLevel = loadingLevel + 1;
+
+        // nếu vượt quá số scene trong Build thì quay về Level1
         if (newLoadingLevel >= SceneManager.sceneCountInBuildSettings)
-            newLoadingLevel = 1; // quay về level1 nếu vượt quá số level
+            newLoadingLevel = 1;
 
         PlayerPrefs.SetInt("currentLevel", newCurrentLevel);
         PlayerPrefs.SetInt("loadingLevel", newLoadingLevel);
 
-        // load qua scene Loading trước
+        // 👉 load qua scene _Loading, để LoadingManager tự xử lý
         SceneManager.LoadScene("_Loading");
     }
+
+
 }
